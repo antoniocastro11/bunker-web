@@ -1,7 +1,6 @@
 import { cva, VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { LucideIcon } from "lucide-react";
-import { error } from "console";
 
 const inputVariants = cva(
     "flex w-full rounded-lg",
@@ -40,7 +39,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
 }
 
 
-const  Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
     (
         {
             className,
@@ -57,10 +56,13 @@ const  Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref
 ) => {
     const hasError = state === "error";
+    
+    const iconSizeClass = inputSize === "sm" ? "w-4 h-4" : inputSize === "lg" ? "w-6 h-6" : "w-5 h-5";
+    
     return (
         <div className="w-full space-y-2">
             {label &&(
-                <label className={`block text-sm font-medium text-foreground", ${disabled ? "opacity-50" :" "}`}
+                <label className={`block text-sm font-medium text-foreground ${disabled ? "opacity-50" : ""}`}
                 >
                     {label}
                 </label>
@@ -68,12 +70,12 @@ const  Input = React.forwardRef<HTMLInputElement, InputProps>(
             <div className="relative">
                 {LeftIcon &&(
                     <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                        <LeftIcon className={`transition-colors $iconSizeClass`}/>
+                        <LeftIcon className={`transition-colors ${iconSizeClass}`}/>
                     </div>
                 )}
                 <input
                     type={type}
-                    className={`{$inputVariants({ variant, inputSize, state: currentState })} ${LeftIcon ? "pl-10" : ""} ${RightIcon ? "pr-10" : ""} ${className || " "}`}
+                    className={`${inputVariants({ variant, inputSize, state })} ${LeftIcon ? "pl-10" : ""} ${RightIcon ? "pr-10" : ""} ${className || ""}`}
                     disabled={disabled}
                     ref={ref}
                     {...props}
@@ -81,7 +83,7 @@ const  Input = React.forwardRef<HTMLInputElement, InputProps>(
 
                     {RightIcon && (
                         <button className={`absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground ${disabled ? "cursor-not-allowed opacity-50" : ""}`}>
-                    <RightIcon className={`transition-colors $iconSizeClass`}/>
+                    <RightIcon className={`transition-colors ${iconSizeClass}`}/>
                     
                     </button>)}
             </div>
