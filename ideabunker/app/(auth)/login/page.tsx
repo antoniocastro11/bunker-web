@@ -21,7 +21,10 @@ export default function LoginPage() {
           </div>
 
           <div className=" mt-10 text-center">
-            <Button variant="ghost"> não tem uma conta? registre-se</Button>
+            <Button size="lg" variant="ghost">
+              {" "}
+              não tem uma conta? registre-se
+            </Button>
           </div>
         </div>
       </div>
